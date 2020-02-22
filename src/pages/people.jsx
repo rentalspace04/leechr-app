@@ -1,14 +1,14 @@
-import { React } from 'react';
+import React from "react";
 
 export class PeoplePage extends React.Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props);
 
-        this.state = {}
-    }
-    render() {
-        return <div></div>
-    }
+    this.state = {};
+  }
+  render() {
+    return <h1>People</h1>;
+  }
 }
 
-export default PeoplePage
+export default PeoplePage;

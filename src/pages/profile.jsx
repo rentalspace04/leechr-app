@@ -1,14 +1,20 @@
-import { React } from 'react';
+import React from "react";
+
+import Footer from "../components/Footer";
 
 export class ProfilePage extends React.Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props);
 
-        this.state = {}
-    }
-    render() {
-        return <div></div>
-    }
+    this.state = {};
+  }
+  render() {
+    return (
+      <div>
+        <Footer />
+      </div>
+    );
+  }
 }
 
-export default ProfilePage
+export default ProfilePage;

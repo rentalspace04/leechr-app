@@ -1,14 +1,20 @@
-import { React } from 'react';
+import React from "react";
+
+import Footer from "../components/Footer";
 
 export class EventPage extends React.Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props);
 
-        this.state = {}
-    }
-    render() {
-        return <div></div>
-    }
+    this.state = {};
+  }
+  render() {
+    return (
+      <div>
+        <Footer />
+      </div>
+    );
+  }
 }
 
-export default EventPage
+export default EventPage;
