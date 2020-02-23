@@ -5,10 +5,12 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
+import Snackbar from "@material-ui/core/Snackbar";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Alert from "@material-ui/lab/Alert";
 import _ from "lodash";
 import React from "react";
 import Helmet from "react-helmet";
@@ -16,6 +18,7 @@ import styled from "styled-components";
 
 import Event, { EventsWrapper } from "../components/Event";
 import EVENTS_LIST from "../utils/events";
+import people from "../utils/people";
 
 const HomeWrapper = styled.div`
   > button {
@@ -25,6 +28,19 @@ const HomeWrapper = styled.div`
 `;
 
 const InputPair = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  > div {
+    flex: 1;
+
+    &:first-child {
+      margin-right: 20px;
+    }
+  }
+`;
+const HeaderButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -46,7 +62,10 @@ const FromActions = styled.div`
 
 export const HomePage = () => {
   const [open, setOpen] = React.useState(false);
-  const [from, setFrom] = React.useState([{ name: "", amount: "" }]);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [from, setFrom] = React.useState([
+    { name: "", amount: "", error: { amount: "", name: "" } }
+  ]);
   const [toDetails, setToDetails] = React.useState({
     name: "",
     amount: "",
@@ -55,6 +74,8 @@ export const HomePage = () => {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleSnackbarOpen = () => setSnackbarOpen(true);
+  const handleSnackbarClose = () => setSnackbarOpen(false);
 
   const addFrom = () => {
     setFrom(_.concat(from, { name: "", amount: "" }));
@@ -66,10 +87,51 @@ export const HomePage = () => {
     }
   };
 
-  const updateEntry = ({ name, amount, i }) => {
+  const updateEntry = ({ name, amount, i, error }) => {
     setFrom(
-      _.concat(_.slice(from, 0, i), { name, amount }, _.slice(from, i + 1))
+      _.concat(
+        _.slice(from, 0, i),
+        { name, amount, error },
+        _.slice(from, i + 1)
+      )
     );
+  };
+
+  const validateInputs = () => {
+    let valid = true;
+    const toAmt = Number.parseFloat(toDetails.amount);
+    if (toAmt <= 0) {
+      valid = false;
+    }
+
+    _.forEach(from, ({ name, amount }, i) => {
+      const error = {
+        name: "",
+        amount: ""
+      };
+      const amt = Number.parseFloat(amount);
+
+      if (amt < 0) {
+        error.amount = "Amount must be greater than zero";
+        valid = false;
+      } else if (toAmt > 0 && amt > toAmt) {
+        error.amount = "Amount must be less than total amount";
+        valid = false;
+      }
+
+      if (!_.find(people, { name })) {
+        error.name = "Name not found :(";
+        valid = false;
+      }
+      if (!valid) {
+        updateEntry({ name, amount, i, error });
+      }
+    });
+    console.log(from);
+    if (valid) {
+      handleClose();
+      handleSnackbarOpen();
+    }
   };
 
   return (
@@ -146,7 +208,7 @@ export const HomePage = () => {
               setToDetails({ ...toDetails, description: e.currentTarget.value })
             }
           />
-          <InputPair>
+          <HeaderButtonsWrapper>
             <Typography variant="h5" gutterBottom>
               Who leeched?
             </Typography>
@@ -166,51 +228,77 @@ export const HomePage = () => {
                 <DeleteIcon />
               </IconButton>
             </FromActions>
-          </InputPair>
-          {_.map(from, ({ name, amount }, i) => (
-            <InputPair key={i}>
-              <TextField
-                autoFocus
-                margin="dense"
-                id={`name-${i}`}
-                label="Name"
-                type="text"
-                value={name}
-                onChange={e =>
-                  updateEntry({ amount, i, name: e.currentTarget.value })
-                }
-              />
-              <TextField
-                autoFocus
-                margin="dense"
-                id={`amount-${i}`}
-                label="Amount"
-                type="number"
-                step="any"
-                min="0"
-                value={amount}
-                onChange={e =>
-                  updateEntry({ name, i, amount: e.currentTarget.value })
-                }
-              />
-            </InputPair>
-          ))}
+          </HeaderButtonsWrapper>
+          {_.map(from, ({ name, amount, error }, i) => {
+            const am_err = !_.isEmpty(error.amount);
+            const nm_err = !_.isEmpty(error.name);
+
+            return (
+              <InputPair key={i}>
+                <TextField
+                  error={nm_err}
+                  helperText={error.name}
+                  autoFocus
+                  margin="dense"
+                  id={`name-${i}`}
+                  label="Name"
+                  type="text"
+                  value={name}
+                  onChange={e =>
+                    updateEntry({
+                      amount,
+                      i,
+                      name: e.currentTarget.value,
+                      error: { ...error, name: "" }
+                    })
+                  }
+                />
+                <TextField
+                  error={am_err}
+                  helperText={error.amount}
+                  margin="dense"
+                  id={`amount-${i}`}
+                  label="Amount"
+                  type="number"
+                  step="any"
+                  min="0"
+                  value={amount}
+                  onChange={e =>
+                    updateEntry({
+                      name,
+                      i,
+                      amount: e.currentTarget.value,
+                      error: { ...error, amount: "" }
+                    })
+                  }
+                />
+              </InputPair>
+            );
+          })}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button
-            onClick={e => {
-              console.log(e);
-              handleClose();
-            }}
-            color="primary"
-          >
+          <Button onClick={validateInputs} color="primary">
             Add
           </Button>
         </DialogActions>
       </Dialog>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          elevation={6}
+          variant="filled"
+        >
+          Successfully added transaction
+        </Alert>
+      </Snackbar>
     </HomeWrapper>
   );
 };
