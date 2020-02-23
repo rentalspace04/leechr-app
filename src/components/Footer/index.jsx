@@ -40,7 +40,7 @@ export const Footer = () => (
     <h3>
       Leechr<span>.</span>
     </h3>
-    <p>Copyright &copy; 2020 Danyon Ramsay Pty. Ltd. Inc.</p>
+    <p>Copyright &copy; 2020 Danyon Ramsay&trade; Pty. Ltd. Inc.</p>
   </FooterWrapper>
 );
 

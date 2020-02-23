@@ -1,3 +1,4 @@
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import React from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
@@ -14,29 +15,41 @@ function App() {
   return (
     <>
       <GlobalStyles />
-
-      <Router>
-        <PageWrapper>
-          <PageContent>
-            <Header />
-            <Switch>
-              <Route path="/people/:personID">
-                <ProfilePage />
-              </Route>
-              <Route path="/people">
-                <PeoplePage />
-              </Route>
-              <Route path="/event/:eventID">
-                <EventPage />
-              </Route>
-              <Route path="/">
-                <HomePage />
-              </Route>
-            </Switch>
-          </PageContent>
-          <Footer />
-        </PageWrapper>
-      </Router>
+      <ThemeProvider
+        theme={createMuiTheme({
+          palette: {
+            primary: {
+              main: "#2c446b"
+            },
+            secondary: {
+              main: "#d62a1e"
+            }
+          }
+        })}
+      >
+        <Router>
+          <PageWrapper>
+            <PageContent>
+              <Header />
+              <Switch>
+                <Route path="/people/:personID">
+                  <ProfilePage />
+                </Route>
+                <Route path="/people">
+                  <PeoplePage />
+                </Route>
+                <Route path="/event/:eventID">
+                  <EventPage />
+                </Route>
+                <Route path="/">
+                  <HomePage />
+                </Route>
+              </Switch>
+            </PageContent>
+            <Footer />
+          </PageWrapper>
+        </Router>
+      </ThemeProvider>
     </>
   );
 }

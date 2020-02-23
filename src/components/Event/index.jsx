@@ -76,7 +76,7 @@ export const Event = ({ event: { from, amount, to, id } }) => {
     <EventWrapper amount={amount} onClick={() => history.push(`/event/${id}`)}>
       <div>
         <div>From</div>
-        <div className="amount">Amount</div>
+        <div className="amount"></div>
         <div>To</div>
       </div>
       <div>

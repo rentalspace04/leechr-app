@@ -18,9 +18,9 @@ export const EVENTS_LIST = [
     description: "Bacon Egg Roll",
     from: people.danyon,
     to: [
-      { amount: 3.6, person: people.emma },
-      { amount: 3.6, person: people.jacob },
-      { amount: 3.6, person: people.erwin }
+      { amount: 6, person: people.emma },
+      { amount: 6, person: people.jacob },
+      { amount: 6, person: people.erwin }
     ],
     amount: 24.4512,
     timestamp: "2020-02-23T02:33:37+00:00"
@@ -63,9 +63,9 @@ export const EVENTS_LIST = [
     description: "Bacon Egg Roll",
     from: people.danyon,
     to: [
-      { amount: 3.6, person: people.emma },
-      { amount: 3.6, person: people.jacob },
-      { amount: 3.6, person: people.erwin }
+      { amount: 6.2, person: people.emma },
+      { amount: 3.5, person: people.jacob },
+      { amount: 8, person: people.erwin }
     ],
     amount: 24.4512,
     timestamp: "2020-02-23T02:33:37+00:00"
@@ -80,15 +80,23 @@ export const EVENTS_LIST = [
       { amount: 2.5, person: people.erwin },
       { amount: 2.5, person: people.maiya }
     ],
-    amount: 13,
+    amount: 12.5,
     timestamp: "2020-02-23T02:33:37+00:00"
   },
   {
     id: 9479,
-    description: "New car",
+    description: "Coffee and a muffin",
     from: people.erwin,
-    to: [{ amount: 19990, person: people.emma }],
-    amount: 19990,
+    to: [{ amount: 10, person: people.emma }],
+    amount: 10,
+    timestamp: "2020-02-23T02:33:37+00:00"
+  },
+  {
+    id: 9470,
+    description: "Bank transfer",
+    from: people.maiya,
+    to: [{ amount: 5, person: people.emma }],
+    amount: 10,
     timestamp: "2020-02-23T02:33:37+00:00"
   }
 ];
