@@ -21,9 +21,13 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  h1, h2, h3, h4 {
+  h1, h2, h3, h4, p {
       padding: 0;
       margin: 0;
+  }
+
+  svg {
+    fill: ${colors.text.main};
   }
 `;
 

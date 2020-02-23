@@ -13,7 +13,7 @@ const HeaderWrapper = styled.div`
 `;
 
 const HeaderItem = styled(NavLink)`
-  color: #fff;
+  color: ${colors.text.main};
   font-size: 18px;
 
   padding: 0 0 10px 0;

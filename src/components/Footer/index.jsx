@@ -9,11 +9,11 @@ const FooterWrapper = styled.div`
   align-items: center;
   justify-content: end;
 
-  background-color: ${colors.background.lowlight};
+  background-color: ${colors.background.darkblue};
   padding: 30px 15px;
   height: 120px;
 
-  border-top: 3px solid #ffffffaa;
+  border-top: 2px solid ${colors.background.highlight};
 
   position: absolute;
   bottom: 0;
@@ -31,6 +31,7 @@ const FooterWrapper = styled.div`
 
   p {
     font-size: 8px;
+    color: #ffffff;
   }
 `;
 
