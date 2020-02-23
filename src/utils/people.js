@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export const danyon = {
   name: "Danyon",
   id: 1234,
@@ -31,5 +33,6 @@ export const all = {
   erwin,
   maiya
 };
+export const people_by_id = _.keyBy(all, "id");
 
 export default all;

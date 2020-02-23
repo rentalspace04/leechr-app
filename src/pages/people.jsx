@@ -1,4 +1,8 @@
+import _ from "lodash";
 import React from "react";
+
+import Person, { PeopleWrapper } from "../components/Person";
+import people from "../utils/people";
 
 export class PeoplePage extends React.Component {
   constructor(props) {
@@ -7,7 +11,15 @@ export class PeoplePage extends React.Component {
     this.state = {};
   }
   render() {
-    return <h1>People</h1>;
+    return (
+      <>
+        <PeopleWrapper>
+          {_.map(people, person => (
+            <Person person={person} key={person.id} />
+          ))}
+        </PeopleWrapper>
+      </>
+    );
   }
 }
 

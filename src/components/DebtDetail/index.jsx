@@ -23,18 +23,20 @@ export const DebtDetail = ({
   debt: {
     person: { id, name },
     amount
-  }
+  },
+  negative = true
 }) => {
   return (
     <DebtWrapper>
       <Link to={`/people/${id}`}>{name}</Link>
-      <Amount amount={amount} negative size={24} />
+      <Amount amount={amount} negative={negative} size={24} />
     </DebtWrapper>
   );
 };
 
 DebtDetail.propTypes = {
-  debt: PropTypes.object
+  debt: PropTypes.object,
+  negative: PropTypes.bool
 };
 
 export const DebtsWrapper = styled.div``;

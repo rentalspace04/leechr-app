@@ -10,6 +10,7 @@ import styled from "styled-components";
 import Amount from "../components/Amount";
 import BackHeader from "../components/BackHeader";
 import DebtDetail, { DebtsWrapper } from "../components/DebtDetail";
+import Heading from "../components/Heading";
 import NameHeader from "../components/NameHeader";
 import EVENTS_LIST from "../utils/events";
 
@@ -27,9 +28,6 @@ const AmountWrapper = styled.div`
   margin-bottom: 30px;
 `;
 
-const Heading = styled.h2`
-  font-size: 32px;
-`;
 const Time = styled.div`
   font-size: 16px;
   font-style: italic;
