@@ -1,6 +1,7 @@
 import _ from "lodash";
 import PropTypes from "prop-types";
 import React from "react";
+import Helmet from "react-helmet";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
@@ -33,6 +34,9 @@ export class ProfilePage extends React.Component {
     const { history, person, owes, owed } = this.props;
     return (
       <>
+        <Helmet>
+          <title>Leechr | {person.name}&apos;s Profile</title>
+        </Helmet>
         <BackHeader history={history} />
         <NameHeader person={person} noLink />
         <Spacer />
@@ -91,7 +95,7 @@ const mapStateToProps = (state, props) => {
 
   _.forEach(all_to, to => {
     const debt = _.find(to.to, { person: { id } });
-    console.log(to, to.to, debt);
+
     if (debt) {
       if (_.has(related_people, to.from.id)) {
         related_people[to.from.id] -= debt.amount;
@@ -116,7 +120,6 @@ const mapStateToProps = (state, props) => {
       });
     }
   });
-  console.log(people);
 
   return {
     person,
