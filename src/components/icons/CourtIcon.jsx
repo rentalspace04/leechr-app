@@ -1,4 +1,4 @@
-import React from "React";
+import React from "react";
 
 export const CourtIcon = () => (
   <svg width="34" height="32" viewBox="0 0 34 32">

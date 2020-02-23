@@ -2,7 +2,7 @@ import React from "react";
 
 export const ArrowRight = () => (
   <svg
-    xmlnsSvg="http://www.w3.org/2000/svg"
+    xmlnssvg="http://www.w3.org/2000/svg"
     version="1.0"
     width="902.25049"
     height="364.71875"

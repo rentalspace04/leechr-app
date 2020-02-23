@@ -12,7 +12,9 @@ const NameWrapper = styled.div`
   }
 `;
 
-const Name = ({ to, big }) => <NameWrapper big={big}>{to.name}</NameWrapper>;
+const Name = ({ to, big }) => (
+  <NameWrapper big={big}>{to.person.name}</NameWrapper>
+);
 Name.propTypes = {
   to: PropTypes.object,
   big: PropTypes.bool
@@ -37,7 +39,9 @@ export const ToNames = ({ to }) => {
     <NamesWrapper>
       {_(to)
         .take(2)
-        .map(person => <Name key={person.id} to={person} big={people === 1} />)
+        .map(person => (
+          <Name key={person.person.id} to={person} big={people === 1} />
+        ))
         .value()}
 
       {people === 3 && <AndMorePeople>And one other person...</AndMorePeople>}
