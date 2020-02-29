@@ -1,7 +1,10 @@
 {
   "name": "leechr-app",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.2.0",
+  "author": "Danyon Ramsay <danyon.ramsay@yahoo.com.au>",
+  "description": "Keeping track of who leeches on whom",
+  "private": false,
+  "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^4.9.3",
     "@material-ui/icons": "^4.9.1",
@@ -9,9 +12,13 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "concurrently": "^5.1.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "numeral": "^2.0.6",
+    "pg": "^7.18.2",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -25,12 +32,15 @@
     "styled-components": "^5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "server": "node server/index.js",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "develop": "NODE_ENV=development yarn start"
   },
   "eslintConfig": {
     "extends": "react-app"
