@@ -8,7 +8,7 @@ router.get("/get", (req, response) => {
   pool.query("SELECT * from users;", (err, result) => {
     if (err) throw err;
 
-    response.json({ ...result.rows });
+    response.json({ rows: [...result.rows] });
   });
 });
 
@@ -26,7 +26,7 @@ router.post("/add", (req, response, next) => {
         return;
       }
 
-      response.json({ ...result.rows });
+      response.json({ error: false, rows: [...result.rows] });
     }
   );
 });
