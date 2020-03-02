@@ -14,9 +14,11 @@ import Alert from "@material-ui/lab/Alert";
 import _ from "lodash";
 import React from "react";
 import Helmet from "react-helmet";
+import { connect } from "react-redux";
 import styled from "styled-components";
 
 import Event, { EventsWrapper } from "../components/Event";
+import { fetchData } from "../redux/actions";
 import EVENTS_LIST from "../utils/events";
 import people from "../utils/people";
 
@@ -60,7 +62,7 @@ const FromActions = styled.div`
   justify-content: flex-end;
 `;
 
-export const HomePage = () => {
+export const HomePage = ({ fetchData, data }) => {
   const [open, setOpen] = React.useState(false);
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [from, setFrom] = React.useState([
@@ -71,6 +73,10 @@ export const HomePage = () => {
     amount: "",
     description: ""
   });
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -303,4 +309,13 @@ export const HomePage = () => {
   );
 };
 
-export default HomePage;
+const mapStateToProps = state => ({
+  data: state.data
+});
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchData: () => dispatch(fetchData())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

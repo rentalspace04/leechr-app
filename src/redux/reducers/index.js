@@ -1,3 +1,5 @@
 import { combineReducers } from "redux";
 
-export default combineReducers({  });
+import data from "./data";
+
+export default combineReducers({ data });
